@@ -63,7 +63,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec "termite -d `xcwd`"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -231,7 +231,7 @@ for_window [class="^.*"] border pixel 2
  gaps outer 10
 
 assign [class="discord"] $ws7
-assign [class="com.spotify.Client"] $ws4
+#assign [class="com.spotify.Client"] $ws4
 
 exec_always --no-startup-id xcompmgr
 #exec_always --no-startup-id setxkbmap -option caps:escape
@@ -243,7 +243,7 @@ exec_always xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Ena
 exec --no-startup-id nm-applet
 exec --no-startup-id i3-msg 'workspace $ws1; exec firefox'
 exec --no-startup-id i3-msg 'workspace $ws2; exec termite'
-exec --no-startup-id i3-msg 'workspace $ws4; exec com.spotify.Client'
+#exec --no-startup-id i3-msg 'workspace $ws4; exec com.spotify.Client'
 exec --no-startup-id nitrogen --restore
 
 #Custom keybinds
@@ -257,9 +257,10 @@ bindsym $mod+Shift+Ctrl+r exec systemctl reboot
 bindsym $mod+Ctrl+t exec thunar
 bindsym $mod+F1 exec termite -e ranger
 
-bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f' #stays in clipboard
 bindsym --release Shift+Print exec scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-bindsym --release Ctrl+Print exec "scrot -s '/home/luk/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
+#bindsym --release Ctrl+Print exec scrot -s '/home/pcosta/screenshots/%s_%H%M_%d%m%Y_$wx$h.png'
+bindsym --release Ctrl+Print exec scrot -s '/home/pcosta/screenshots/%H:%M_%d-%m-%Y_$wx$h.png'
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
