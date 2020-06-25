@@ -1,14 +1,10 @@
 syntax on
 set nocompatible              " be iMproved, required
-filetype off "plugin indent on required
+filetype off                  " required
 
 let mapleader=","
 
 set rtp+=~/.vim/bundle/Vundle.vim
-
-"Pathogen
-execute pathogen#infect('~/.vim/bundle/pathogen/{}')
-
 call vundle#begin()
 
 "let Vundle manage Vundle, required
@@ -34,19 +30,15 @@ Plugin 'powerline/fonts'
 
 "NerdCommenter
 Plugin 'preservim/nerdcommenter'
-
 call vundle#end()
 
 call plug#begin('~/.vim/plugged')
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"colorschemes
-Plug 'ParamagicDev/vim-medic_chalk'
-Plug 'wdhg/dragon-energy'
 call plug#end()
 
 let g:vim_monokai_tasty_italic = 1                    " allow italics, set this before the colorscheme
-colorscheme vim-monokai-tasty
+colorscheme vim-monokai-tasty                         " set the colorscheme
 
 " Show line number
 set number
@@ -298,14 +290,3 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 " vnoremap <A-j> :m '>+1<CR>gv=gv
 " vnoremap <A-k> :m '<-2<CR>gv=gv
 
-" Haskell setup
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-
-" Git gutter stuff
-set updatetime=100
