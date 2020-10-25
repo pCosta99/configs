@@ -1,3 +1,6 @@
 To enable audio do:
 pacman -S alsa-utils
 amixer sset Master unmute
+
+Spotify needed some extra shit:
+systemctl --user start pulseaudio

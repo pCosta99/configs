@@ -1,0 +1,2 @@
+If keys are stressing out run:
+echo "keyserver hkp://pool.sks-keyservers.net" > /home/$USER/.gnupg/gpg.conf
