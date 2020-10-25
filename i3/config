@@ -241,15 +241,15 @@ exec_always xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scr
 exec_always xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 
 exec --no-startup-id nm-applet
-exec --no-startup-id i3-msg 'workspace $ws1; exec firefox'
+exec --no-startup-id i3-msg 'workspace $ws1; exec chromium'
 exec --no-startup-id i3-msg 'workspace $ws2; exec termite'
 #exec --no-startup-id i3-msg 'workspace $ws4; exec com.spotify.Client'
 exec --no-startup-id nitrogen --restore
 
 #Custom keybinds
-bindsym $mod+Ctrl+f exec --no-startup-id firefox
+bindsym $mod+Ctrl+f exec --no-startup-id chromium
 bindsym $mod+Ctrl+d exec --no-startup-id discord
-bindsym $mod+Ctrl+s exec --no-startup-id com.spotify.Client
+bindsym $mod+Ctrl+s exec --no-startup-id spotify
 bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol
 bindsym $mod+Ctrl+n exec systemctl suspend
 bindsym $mod+Ctrl+k exec systemctl poweroff
