@@ -72,6 +72,9 @@ plugins=(
 	git
 	colored-man-pages
 	colorize
+	fzf
+	zsh-autosuggestions
+	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -128,3 +131,5 @@ alias vi="nvim"
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
