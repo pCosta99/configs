@@ -136,3 +136,7 @@ if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#Color ls
+source $(dirname $(gem which colorls))/tab_complete.sh
+alias ls="colorls --sd -A"
