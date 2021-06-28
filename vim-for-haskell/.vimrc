@@ -218,47 +218,48 @@ endif
 " Colors and Fonts {{{
 
 try
-  colorscheme wombat256mod
+  "let g:vim_monokai_tasty_italic = 1                    " allow italics, set this before the colorscheme
+  colorscheme vim-monokai-tasty
 catch
 endtry
 
 " Adjust signscolumn to match wombat
-hi! link SignColumn LineNr
+"hi! link SignColumn LineNr
 
-" Use pleasant but very visible search hilighting
-hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
-hi! link Visual Search
+"" Use pleasant but very visible search hilighting
+"hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
+"hi! link Visual Search
 
-" Match wombat colors in nerd tree
-hi Directory guifg=#8ac6f2
+"" Match wombat colors in nerd tree
+"hi Directory guifg=#8ac6f2
 
-" Searing red very visible cursor
-hi Cursor guibg=red
+"" Searing red very visible cursor
+"hi Cursor guibg=red
 
-" Don't blink normal mode cursor
-set guicursor=n-v-c:block-Cursor
-set guicursor+=n-v-c:blinkon0
+"" Don't blink normal mode cursor
+"set guicursor=n-v-c:block-Cursor
+"set guicursor+=n-v-c:blinkon0
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-  set guioptions-=T
-  set guioptions-=e
-  set guitablabel=%M\ %t
-endif
-set t_Co=256
+"" Set extra options when running in GUI mode
+"if has("gui_running")
+  "set guioptions-=T
+  "set guioptions-=e
+  "set guitablabel=%M\ %t
+"endif
+"set t_Co=256
 
-" Set utf8 as standard encoding and en_US as the standard language
-if !has('nvim')
-  " Only set this for vim, since neovim is utf8 as default and setting it
-  " causes problems when reloading the .vimrc configuration
-  set encoding=utf8
-endif
+"" Set utf8 as standard encoding and en_US as the standard language
+"if !has('nvim')
+  "" Only set this for vim, since neovim is utf8 as default and setting it
+  "" causes problems when reloading the .vimrc configuration
+  "set encoding=utf8
+"endif
 
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
+"" Use Unix as the standard file type
+"set ffs=unix,dos,mac
 
-" Use large font by default in MacVim
-set gfn=Monaco:h19
+"" Use large font by default in MacVim
+"set gfn=Monaco:h19
 
 " Use powerline fonts for airline
 if !exists('g:airline_symbols')
@@ -550,7 +551,7 @@ nnoremap <silent> <leader>g? :call CommittedFiles()<CR>:copen<CR>
 set completeopt+=longest
 
 " Use buffer words as default tab completion
-let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
+"let g:SuperTabDefaultCompletionType = '<TAB>'
 
 " }}}
 
@@ -568,16 +569,27 @@ setlocal conceallevel=2
 set concealcursor=nciv
 let hscoptions="fc"
 
-" Save with Ctrl-S
-noremap  <silent> <C-S>         :w<CR>
-vnoremap <silent> <C-S>         <ESC>:w<ESC><CR>
-inoremap <silent> <C-S>         <ESC>:w<CR>
-
 " TAB in general mode will move to text buffer
-nnoremap <TAB> :bnext<CR>
+"nnoremap <TAB> :bnext<CR>
 " SHIFT-TAB will go back
 nnoremap <S-TAB> :bprevious<CR>
 
 " Quick quit command
 noremap <leader>q :quit<CR>
 noremap <leader>Q :qa!<CR>
+
+"  Scrolling tabs
+map <leader>1 1gt
+map <leader>2 2gt
+map <leader>3 3gt
+map <leader>4 4gt
+map <leader>5 5gt
+map <leader>6 6gt
+map <leader>7 7gt
+map <leader>8 8gt
+map <leader>9 9gt
+map <leader>0 10gt
+map <leader>t :tabnew<CR>
+
+" No need for SuperTab with this
+imap <TAB> <C-P>
