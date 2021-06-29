@@ -45,9 +45,6 @@ inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 " Kill the damned Ex mode.
 nnoremap Q <nop>
 
-" Reload configs
-noremap <leader>r :Reload<CR>
-
 " Open file prompt with current path
 nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 

@@ -34,7 +34,4 @@ Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
 " Comments
 Plug 'preservim/nerdcommenter'
 
-" Others
-Plug 'famiu/nvim-reload'
-
 call plug#end()
