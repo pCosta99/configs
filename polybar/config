@@ -38,11 +38,11 @@ light = #eee
 gray = #999
 dark-gray = #333
 
-[bar/top]
+[bar/mainBar]
 enable-ipc = true
 override-redirect = false
 
-bottom = false
+bottom = true
 width = 100%
 height = 22 ;px
 
@@ -678,5 +678,5 @@ type = custom/script
 interval = 1
 format-prefix = "   "
 format = <label>
-exec = python /home/pcosta/.config/polybar/scripts/spotify_status.py -f '{artist}: {song}'
+exec = python3 /home/pcosta/.config/polybar/scripts/spotify_status.py -f '{artist}: {song}'
 format-underline = #1db954
