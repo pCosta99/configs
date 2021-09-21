@@ -9,6 +9,12 @@ set foldnestmax=5
 set foldlevelstart=99
 set foldcolumn=0
 
+" Clipboard
+set clipboard+=unnamedplus
+
+" Scrolling
+set scrolloff=10
+
 augroup vimrcFold
   " fold vimrc itself by categories
   autocmd!

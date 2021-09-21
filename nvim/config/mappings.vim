@@ -7,6 +7,16 @@ if ! exists("g:mapleader")
   let g:mapleader = ","
 endif
 
+" Upgraded ci
+nnoremap ci( :call ChangeInsideSurroundings("(")
+nnoremap ci) :call ChangeInsideSurroundings("(")
+nnoremap ci[ :call ChangeInsideSurroundings("[")
+nnoremap ci] :call ChangeInsideSurroundings("[")
+nnoremap ci{ :call ChangeInsideSurroundings("{")
+nnoremap ci} :call ChangeInsideSurroundings("{")
+nnoremap ci< :call ChangeInsideSurroundings("<")
+nnoremap ci> :call ChangeInsideSurroundings("<")
+
 " Easier to leave insert mode
 imap jj <Esc>
 
@@ -40,7 +50,7 @@ map <leader>0 10gt
 map <leader>t :tabnew<CR>
 
 " No need for SuperTab with this
-inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+"inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 " Kill the damned Ex mode.
 nnoremap Q <nop>
@@ -68,9 +78,12 @@ noremap <c-k> <c-w>k
 noremap <c-j> <c-w>j
 noremap <c-l> <c-w>l
 
+" Buffer related stuff
+map <Leader>bl :ls<CR>
+
 " Disable highlight when <leader><cr> is pressed
 " but preserve cursor coloring
-nmap <silent> <leader><cr> :noh\|hi Cursor guibg=red<cr>
+nmap <silent> <space> :noh<cr>
 " }}}
 
 " Spell checking {{{
@@ -86,4 +99,13 @@ map <leader>ss :setlocal spell!<cr>
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
+" }}}
+
+" Trouble plugin {{{
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 " }}}

@@ -1,4 +1,7 @@
 " Contains some helper functions
+function! MyTabComplete()
+  return "\<Tab>"
+endfunction
 
 function! Smart_TabComplete()
   let line = getline('.')                         " current line
@@ -8,7 +11,7 @@ function! Smart_TabComplete()
                                                   " of the cursor
   let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
   if (strlen(substr)==0)                          " nothing to match on empty string
-    return "\<tab>"
+    return "\<Tab>"
   endif
   let has_period = match(substr, '\.') != -1      " position of period, if any
   let has_slash = match(substr, '\/') != -1       " position of slash, if any
@@ -46,4 +49,14 @@ function! VisualSelection(direction, extra_filter) range
 
   let @/ = l:pattern
   let @" = l:saved_reg
+endfunction
+
+function ChangeInsideSurroundings(sr)
+  let letter = strcharpart(getline('.'), col('.') - 1, 1)
+  if letter!=a:sr
+    :execute "normal /" . a:sr . "\<cr>"
+  endif
+  :execute "normal di" . a:sr
+  :execute "normal l"
+  :startinsert
 endfunction
