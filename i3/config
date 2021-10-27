@@ -231,7 +231,7 @@ for_window [class="^.*"] border pixel 2
  gaps inner 15
  gaps outer 10
 
-assign [class="discord"] $ws7
+#assign [class="discord"] $ws7
 #assign [class="com.spotify.Client"] $ws4
 
 exec_always --no-startup-id xcompmgr
