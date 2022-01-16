@@ -146,6 +146,12 @@ alias vi="nvim"
 # Solution obtained from https://forum.manjaro.org/t/touchpad-sometimes-not-working/82296/9
 alias mousefix="sudo modprobe -r i2c_hid_acpi && sudo modprobe i2c_hid_acpi"
 
+# This command fixes the mouse not initializing properly.
+# It can be detected that the mouse didn't initialize properly by running
+# sudo dmesg | grep -i error
+# Solution obtained from https://forum.manjaro.org/t/touchpad-sometimes-not-working/82296/9
+alias mousefix="sudo modprobe -r i2c_hid_acpi && sudo modprobe i2c_hid_acpi"
+
 # Auto-run startx after logging
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
