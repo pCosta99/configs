@@ -47,10 +47,10 @@ map <leader>7 7gt
 map <leader>8 8gt
 map <leader>9 9gt
 map <leader>0 10gt
-map <leader>t :tabnew<CR>
+map <leader>t :tabnew %<CR>
 
-" No need for SuperTab with this
-"inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+" Delete buffer without closing split
+nnoremap <leader>bd :bp\|bd #<CR>
 
 " Kill the damned Ex mode.
 nnoremap Q <nop>

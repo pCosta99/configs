@@ -10,6 +10,8 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/pcosta/.oh-my-zsh"
+export CHROME_EXECUTABLE="/bin/chromium"
+export GEM_EDITOR="nvim"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -84,6 +86,7 @@ plugins=(
 	colorize
 	zsh-autosuggestions
 	zsh-syntax-highlighting
+	asdf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -135,6 +138,13 @@ alias java14="sudo archlinux-java set java-openjdk"
 alias sonarqube="java11 && /opt/sonarqube/bin/linux-x86-64/sonar.sh console"
 alias vim="nvim"
 alias vi="nvim"
+#alias solargraph="/home/pcosta/.local/share/gem/ruby/3.0.0/bin/solargraph"
+
+# This command fixes the mouse not initializing properly.
+# It can be detected that the mouse didn't initialize properly by running
+# sudo dmesg | grep -i error
+# Solution obtained from https://forum.manjaro.org/t/touchpad-sometimes-not-working/82296/9
+alias mousefix="sudo modprobe -r i2c_hid_acpi && sudo modprobe i2c_hid_acpi"
 
 # Auto-run startx after logging
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
@@ -144,9 +154,22 @@ fi
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #Color ls
-source $(dirname $(gem which colorls))/tab_complete.sh
-alias ls="colorls --sd -A"
+#source $(dirname $(gem which colorls))/tab_complete.sh
+#alias ls="colorls --sd -A"
+
+path+=('/home/pcosta/.local/share/gem/ruby/3.0.0/bin')
+export PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 if [ -e /home/pcosta/.nix-profile/etc/profile.d/nix.sh ]; then . /home/pcosta/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+xset -b
+
+eval "$(direnv hook zsh)"
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
