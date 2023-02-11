@@ -1,0 +1,683 @@
+[fonts]
+opensansreg = DroidSans:Regular:size=8
+opensanssemibold = DroidSans:SemiBold:size=8
+opensansbold = DroidSans:Bold:size=8
+opensansboldhigh = DroidSans:Bold:size=11
+opensansital = DroidSans:Italic:size=9
+xos = xos4\ Terminus:size=14;0
+nerd = TerminessTTF Nerd Font:size=12;0
+notosans = Noto Sans Symbols2:Regular:size=11;1
+
+[colors]
+accent = #fba922
+background = #1c1c1c
+foreground = #eefafafa
+foreground-alt = #555
+
+light-red = #D95B5B
+light-green = #249824
+light-purple = #A44BA0
+
+menucol-yellow = #F7F272
+menucol-blue = #1771F1
+menucol-orange = #FFAF60
+menucol-red = #F85C50
+menucol-green = #77BD8B
+menucol-sealine = #00CF91
+menucol-purple = #9A76B3
+menucol-pink = #FF77BF
+menucol-deepblue = #6560FF
+menucol-lightblue = #60FFF7
+
+fav-purple = #6633FF
+dark = #111
+dark-red = #311
+dark-green = #131
+dark-purple = #201134
+light = #eee
+gray = #999
+dark-gray = #333
+cyan = #00FFFF
+
+[bar/mainBar]
+monitor = ${env:MONITOR:}
+enable-ipc = true
+override-redirect = false
+
+bottom = true
+width = 100%
+height = 22 ;px
+
+background = ${colors.dark}
+foreground = ${colors.light}
+
+line-color = ${colors.light-purple}
+line-size = 2
+
+separator = "   "
+
+;List of fonts
+font-0 = ${fonts.opensansreg}
+font-1 = ${fonts.opensanssemibold}
+font-2 = ${fonts.opensansbold}
+font-3 = ${fonts.opensansital}
+font-4 = ${fonts.xos}
+font-5 = ${fonts.nerd}
+font-6 = ${fonts.opensansboldhigh}
+font-7 = ${fonts.notosans}
+
+wm-restack = i3
+tray-position = left
+
+modules-left = workspaces appfilemanager spotify
+modules-center = datetime
+modules-right = layout temperature memory memoryswap cpu battery brightness pulseaudio-control wifi toppowermenu
+
+;Network
+[module/wifi]
+type = internal/network
+interface = wlo1
+format-connected =  <ramp-signal>
+format-connected-padding = 2
+format-connected-foreground = ${colors.menucol-green}
+format-connected-underline = ${colors.menucol-green}
+
+format-disconnected = " "
+format-disconnected-font = 7
+format-disconnected-padding = 2
+format-disconnected-foreground = ${colors.menucol-yellow}
+format-disconnected-underline = ${colors.menucol-yellow}
+
+ramp-signal-0 = " "
+ramp-signal-1 = "▂"
+ramp-signal-2 = "▄"
+ramp-signal-3 = "▅"
+ramp-signal-4 = "▇"
+ramp-signal-font = 7
+ramp-signal-foreground = ${colors.light}
+
+;Custom Exit Button
+[module/toppowermenu]
+type = custom/text
+
+content = ⏻
+content-font = 7
+content-padding = 2
+content-foreground = ${colors.menucol-lightblue}
+content-underline = ${colors.menucol-lightblue}
+
+click-left = sh ~/.i3/powermenu.sh
+
+;Sound
+[module/sound]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-padding = 2
+format-volume-underline = ${colors.menucol-sealine}
+
+label-volume = %percentage%
+label-volume-font = 3
+
+label-muted =    (%percentage%)
+label-muted-font = 3
+label-muted-padding = 2
+label-muted-foreground = ${colors.gray}
+label-muted-underline = ${colors.gray}
+
+ramp-volume-0 = "  "
+ramp-volume-1 = "  "
+ramp-volume-2 = "  "
+ramp-volume-font = 7
+ramp-volume-foreground = ${colors.menucol-sealine}
+
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+format-underline = ${colors.cyan}
+label-padding = 2
+label-forground = ${colors.foreground}
+
+# Icons mixed from Font Awesome 5 and Material Icons
+# You can copy-paste your options for each possible action, which is more
+# trouble-free but repetitive, or apply only the relevant ones (for example
+# --sink-blacklist is only needed for next-sink).
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --node-nicknames-from "device.description" --node-nickname "alsa_output.pci-0000_00_1b.0.analog-stereo:  Speakers" --node-nickname "alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo:  Headphones" listen
+click-right = exec pavucontrol &
+click-left = pulseaudio-control togmute
+click-middle = pulseaudio-control --sink-blacklist "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2" next-node
+scroll-up = pulseaudio-control --volume-max 130 up
+scroll-down = pulseaudio-control --volume-max 130 down
+
+#Date correction
+[module/datetime]
+type = custom/script
+exec = TZ=Lisbon/Europe date +"%A, %B %d %H:%M"
+
+format-prefix = "   "
+format-padding = 2
+format-underline = ${colors.menucol-orange}
+format-foreground = ${colors.menucol-orange}
+
+label-font = 2
+label-foreground = ${colors.light}
+
+[module/temperature]
+type = internal/temperature
+interval = 0.5
+format = <ramp> <label>
+format-padding = 2
+format-underline = ${colors.menucol-deepblue}
+
+format-warn = <ramp> <label-warn>
+label = %temperature-c%
+label-font = 3
+
+label-warn = "%temperature-c% "
+label-warn-font = 3
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-font = 7
+ramp-foreground = ${colors.menucol-deepblue}
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label>
+format-padding = 2
+format-underline = ${colors.menucol-red}
+
+format-prefix = "   "
+format-prefix-foreground = ${colors.menucol-red}
+
+label = " %percentage%"
+label-font = 3
+
+[module/memory]
+type = internal/memory
+interval = 3
+format = <label>
+format-padding = 2
+format-underline = ${colors.menucol-purple}
+
+format-prefix = "   "
+format-prefix-foreground = ${colors.menucol-purple}
+
+label = " %gb_used%"
+label-font = 3
+
+[module/memoryswap]
+type = internal/memory
+interval = 3
+format = <label>
+format-padding = 2
+format-underline = ${colors.menucol-pink}
+
+format-prefix = "  "
+format-prefix-foreground = ${colors.menucol-pink}
+
+label = " %gb_swap_used%"
+label-font = 3
+
+#Brightness
+[module/brightness]
+type = internal/backlight
+card = intel_backlight
+format = <label>
+format-padding = 2
+format-prefix = "   "
+format-underline = ${colors.menucol-yellow}
+format-prefix-foreground = ${colors.menucol-yellow}
+
+label = " %percentage%"
+label-font = 3
+
+[module/appfilemanager]
+type = custom/text
+content = 
+content-font = 7
+content-padding = 2
+click-left = "nemo > /dev/null 2>&1 &"
+
+#Keyboard Layout
+[module/layout]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+blacklist-2 = scroll lock
+
+format-prefix = "    "
+format-underline = ${colors.menucol-blue}
+format-foreground = ${colors.menucol-blue}
+format-padding = 2
+
+label-layout = %layout%
+label-layout-font = 2
+label-layout-foreground = ${colors.light}
+
+[bar/FullBottom]
+;monitor = eDP-1
+bottom = true
+width = 100%
+height = 25
+radius = 6.0
+fixed-center = true
+
+background = #1c1c1c
+foreground = #eefafafa
+foreground-alt = #555
+
+overline-size = 3
+overline-color = ${colors.accent}
+underline-size = 3
+underline-color = ${colors.accent}
+
+;border-color = #ff0000
+;border-top-size = 3
+;border-top-color = #3d3d3d
+;border-bottom = 0
+;border-bottom-color = #333333
+
+spacing = 3
+;padding-right = 4
+padding-left = 0
+padding-right = 0
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = NotoSans-Regular:size=8;0
+font-1 = Unifont:size=5;0
+font-2 = FontAwesome:size=9;0
+font-3 = NotoSans-Regular:size=8;-1
+font-4 = Unifont:size=5;0
+font-5 = Termsynu:size=7;0
+font-6 = Iosevka:weight=medium:pixelsize=14;0
+
+tray-position = right
+tray-padding = 2
+
+modules-left = workspaces
+modules-center = xwindow
+modules-right = backlight battery spotify pulseaudio clock
+
+[module/fs-root]
+type = internal/fs
+mount-0 = /
+label-mounted = %{F#e60053}%percentage_used%%%{F-} used of %mountpoint%
+
+[module/xbacklight]
+type = internal/xbacklight
+output = eDP-1
+format = <ramp> <bar>
+
+ramp-0 = 
+ramp-0-foreground = #666
+ramp-1 = 
+ramp-1-foreground = #999
+ramp-2 = 
+ramp-2-foreground = #fff
+
+bar-width = 12
+bar-indicator = |
+bar-indicator-font = 6
+bar-indicator-foreground = #bbffffff
+bar-fill = ─
+bar-fill-font = 6
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 6
+bar-empty-foreground = #44
+
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+format = <label>
+#ramp-0 = 
+#ramp-1 = 
+#ramp-foreground = #666
+label =   %percentage%
+
+#interactive = true
+
+;Workspaces
+[module/workspaces]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+
+format = <label-state> <label-mode>
+
+label-dimmed-underline = ${colors.background}
+
+;On editing mode (resize for ex)
+label-mode = %mode%
+label-mode-background = ${colors.dark-purple}
+label-mode-underline = ${colors.fav-purple}
+label-mode-padding = 2
+label-mode-font = 3
+
+label-focused = %index%
+label-focused-background = ${colors.dark-green}
+label-focused-underline = ${colors.light-green}
+label-focused-padding = 3
+label-focused-font = 3
+
+label-unfocused = %index%
+label-unfocused-foreground = ${colors.gray}
+label-unfocused-padding = 3
+label-unfocused-font = 3
+
+label-visible = %index%
+label-visible-background = ${colors.dark-purple}
+label-visible-underline = ${colors.light-purple}
+label-visible-padding = 3
+label-visible-font = 3
+
+label-urgent = %index%
+label-urgent-background = ${colors.dark-red}
+label-urgent-underline = ${colors.light-red}
+label-urgent-padding = 3
+label-urgent-font = 3
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+pin-workspaces = true
+
+ws-icon-0 = 1;I
+ws-icon-1 = 2;II
+ws-icon-2 = 3;III
+ws-icon-3 = 4;IV
+ws-icon-7 = 5;V
+ws-icon-default = X
+
+label-dimmed-underline = ${root.background}
+
+;label-focused = %icon%  %name%
+label-focused = %icon%
+label-focused-foreground = #f3f3f3
+label-focused-background = #3f3f3f
+;label-focused-underline = #${colors.accent}
+;label-focused-underline = #9f78e1
+label-focused-underline = #ffb52a
+label-focused-font = 4
+label-focused-padding = 4
+
+;label-unfocused = %icon%  %name%
+label-unfocused = %icon%
+label-unfocused-underline = #555555
+label-unfocused-font = 4
+label-unfocused-padding = 4
+
+;label-urgent = %icon%  %name%
+label-urgent = %icon%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-underline = #9b0a20
+label-urgent-font = 4
+label-urgent-padding = 4
+
+label-visible = %icon%  %name%
+label-visible-foreground = #55ffffff
+label-visible-font = 4
+label-visible-padding = 4
+
+; [module/wireless-network]
+; type = internal/network
+; interface = net1
+; interval = 2.0
+; ping-interval = 10
+
+; format-connected = <ramp-signal> <label-connected>
+; label-connected = %essid%
+; label-disconnected =    not connected
+; label-disconnected-foreground = #66
+
+; ramp-signal-0 = 
+; ramp-signal-1 = 
+; ramp-signal-2 = 
+; ramp-signal-3 = 
+; ramp-signal-4 = 
+
+; animation-packetloss-0 = 
+; animation-packetloss-0-foreground = #ffa64c
+; animation-packetloss-1 = 
+; animation-packetloss-1-foreground = ${bar/top.foreground}
+; animation-packetloss-framerate = 500
+
+#;[module/wlan]
+#;type = internal/network
+#;interface = net1
+#;interval = 3.0
+
+#;format-connected = <ramp-signal> <label-connected>
+#;format-connected-underline = #9f78e1
+#;label-connected = %essid%
+
+#;format-disconnected =
+#;;format-disconnected = <label-disconnected>
+#;;format-disconnected-underline = ${self.format-connected-underline}
+#;;label-disconnected = %ifname% disconnected
+#;;label-disconnected-foreground = ${colors.foreground-alt}
+
+#;ramp-signal-0 = 
+#;ramp-signal-1 = 
+#;ramp-signal-2 = 
+#;ramp-signal-3 = 
+#;ramp-signal-4 = 
+#;; ramp-signal-foreground = ${colors.foreground-alt}
+
+#; [module/wired-network]
+#; type = internal/network
+#; interface = enp3s0
+#; interval = 2.0
+
+#; label-connected =   %local_ip%
+#; label-disconnected = Ethernet disconnected
+#; label-disconnected-foreground = #66
+
+#; [module/mpd]
+#; type = internal/mpd
+#; format-online = <bar-progress>  <icon-prev> <icon-stop> <toggle> <icon-next>  <label-song>
+#; format-online-overline = ${root.background}
+#; format-online-underline = ${root.background}
+#; format-offline = <label-offline>
+#; label-offline = mpd is off
+
+#; icon-play = 
+#; icon-pause = 
+#; icon-stop = 
+#; icon-prev = 
+#; icon-next = 
+#; icon-random = 
+#; icon-repeat = 
+
+#; toggle-on-foreground =
+#; toggle-off-foreground = #55
+
+#; bar-progress-width = 45
+#; bar-progress-format = %{+o +u}%fill%%{-o -u}%indicator%%{+o +u}%empty%%{-u -o}
+#; ; bar-progress-indicator = |
+#; bar-progress-indicator = █
+#; bar-progress-indicator-foreground = #ff
+#; bar-progress-indicator-font = 3
+#; ; bar-progress-fill = ─
+#; bar-progress-fill = █
+#; bar-progress-fill-foreground = #bb
+#; bar-progress-fill-font = 3
+#; ; bar-progress-empty = ─
+#; bar-progress-empty = ▒
+#; bar-progress-empty-font = 3
+#; bar-progress-empty-foreground = #44
+
+[module/clock]
+type = internal/date
+interval = 5
+format-padding = 2
+; format-background = #000
+; format-foreground = #fff
+format-underline = #0a6cf5
+date = %%{F#bb}%d-%m-%Y%%{F-}    %%{F#ee}%H:%M%%{F-}
+
+[module/volume]
+type = internal/volume
+speaker-mixer = Speaker
+headphone-mixer = Headphone
+headphone-id = 9
+
+format-volume = <ramp-volume> <label-volume>
+
+label-volume = volume %percentage%%
+label-volume-foreground = #ff
+
+format-muted-prefix = " "
+format-muted-foreground = #66
+label-muted = sound muted
+label-muted-foreground = #99ffffff
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-foreground = #9f78e1
+
+ramp-headphones-0 = 
+ramp-headphones-1 = 
+ramp-headphones-foreground = #9f78e1
+
+;Battery Indicator
+[module/battery]
+type = internal/battery
+battery = BAT0
+full-at = 100
+
+format-charging = <animation-charging> <label-charging>
+format-charging-padding = 2
+format-charging-underline = ${colors.menucol-orange}
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-padding = 2
+format-discharging-underline = ${colors.menucol-orange}
+
+label-charging = %percentage%
+label-charging-font = 3
+
+label-discharging = %percentage%
+label-discharging-font = 3
+
+animation-charging-0 = "  "
+animation-charging-1 = "  "
+animation-charging-2 = "  "
+animation-charging-3 = "  "
+animation-charging-4 = "  "
+animation-charging-framerate = 750
+animation-charging-foreground = ${colors.menucol-orange}
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-5 = 
+animation-discharging-6 = 
+animation-discharging-7 = 
+animation-discharging-8 = 
+animation-discharging-9 = 
+animation-discharging-framerate = 750
+animation-discharging-foreground = ${colors.menucol-orange}
+
+[module/xwindow]
+type = internal/xwindow
+label-maxlen = 75
+label-foreground = #bbb
+
+[module/powermenu]
+type = custom/menu
+
+format-padding = 3
+format-background = #000
+format-foreground = #fff
+
+label-open = 
+label-close = 
+label-separator = " - "
+
+menu-0-0 = Terminate WM
+menu-0-0-foreground = ${colors.accent}
+menu-0-0-exec = bspc quit -1
+menu-0-1 = Reboot
+menu-0-1-foreground = ${colors.accent}
+menu-0-1-exec = menu-open-1
+menu-0-2 = Power off
+menu-0-2-foreground = ${colors.accent}
+menu-0-2-exec = menu-open-2
+
+menu-1-0 = Cancel
+menu-1-0-foreground = ${colors.accent}
+menu-1-0-exec = menu-open-0
+menu-1-1 = Reboot
+menu-1-1-foreground = ${colors.accent}
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = Power off
+menu-2-0-foreground = ${colors.accent}
+menu-2-0-exec = sudo poweroff
+menu-2-1 = Cancel
+menu-2-1-foreground = ${colors.accent}
+menu-2-1-exec = menu-open-0
+
+; vim:ft=dosini
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+; format-volume = <label-volume> <bar-volume>
+label-volume =   %percentage:3%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = muted
+label-muted-foreground = #666
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = "   "
+format = <label>
+exec = python3 /home/pcosta/.config/polybar/scripts/spotify_status.py -f '{artist}: {song}'
+format-underline = #1db954
