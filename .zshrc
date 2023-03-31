@@ -12,15 +12,22 @@ fi
 export ZSH="/home/pcosta/.oh-my-zsh"
 export CHROME_EXECUTABLE="/bin/chromium"
 export GEM_EDITOR="nvim"
+export EDITOR="nvim"
+export BROWSER="/usr/bin/firefox"
+export ERL_AFLAGS="-kernel shell_history enabled"
+export TZ='Europe/Lisbon'
+export ALGORAND_DATA="$HOME/node/data"
+export PATH="$HOME/node:$PATH"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-POWERLEVEL9K_MODE="nerdfont-complete"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)
+#ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="passion"
+#POWERLEVEL9K_MODE="nerdfont-complete"
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -86,7 +93,6 @@ plugins=(
 	colorize
 	zsh-autosuggestions
 	zsh-syntax-highlighting
-	asdf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -118,33 +124,18 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ga="git add"
 alias gc="git commit"
+alias gch="git checkout"
+alias gcp="git cherry-pick"
 alias gs="git status"
 alias ghc="stack ghc"
 alias ghci="stack ghci"
 alias p="sudo pacman"
 #alias spotify="flatpak run com.spotify.Client"
-alias UM="cd /home/pcosta/Desktop/UM"
-alias Masters="cd /home/pcosta/Desktop/Mestrado"
-alias ATS="cd /home/pcosta/Desktop/Mestrado/MFES/ATS"
-alias EM="cd /home/pcosta/Desktop/Mestrado/MFES/EM"
-alias CSI="cd /home/pcosta/Desktop/Mestrado/MFES/CSI"
-alias SDB="cd /home/pcosta/Desktop/Mestrado/SD/SDB"
-alias PSD="cd /home/pcosta/Desktop/Mestrado/SD/PSD"
-alias FSD="cd /home/pcosta/Desktop/Mestrado/SD/FSD"
-alias electrum="sudo archlinux-java set java-8-openjdk && java -jar /usr/bin/electrum2.0.1.jar"
-alias java8="sudo archlinux-java set java-8-openjdk"
-alias java11="sudo archlinux-java set java-11-openjdk"
-alias java14="sudo archlinux-java set java-openjdk"
-alias sonarqube="java11 && /opt/sonarqube/bin/linux-x86-64/sonar.sh console"
 alias vim="nvim"
 alias vi="nvim"
+alias wally="feh --bg-fill --randomize ~/.wallpaper/*"
+alias fly="/home/pcosta/.fly/bin/flyctl"
 #alias solargraph="/home/pcosta/.local/share/gem/ruby/3.0.0/bin/solargraph"
-
-# This command fixes the mouse not initializing properly.
-# It can be detected that the mouse didn't initialize properly by running
-# sudo dmesg | grep -i error
-# Solution obtained from https://forum.manjaro.org/t/touchpad-sometimes-not-working/82296/9
-alias mousefix="sudo modprobe -r i2c_hid_acpi && sudo modprobe i2c_hid_acpi"
 
 # This command fixes the mouse not initializing properly.
 # It can be detected that the mouse didn't initialize properly by running
@@ -160,22 +151,30 @@ fi
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #Color ls
-#source $(dirname $(gem which colorls))/tab_complete.sh
-#alias ls="colorls --sd -A"
-
-path+=('/home/pcosta/.local/share/gem/ruby/3.0.0/bin')
+path+=('/home/pcosta/node')
+path+=('/home/pcosta/.local/share/gem/ruby/3.1.0/bin')
 export PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 if [ -e /home/pcosta/.nix-profile/etc/profile.d/nix.sh ]; then . /home/pcosta/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
-
 xset -b
 
 eval "$(direnv hook zsh)"
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+export PATH=$PATH:/home/pcosta/.spicetify
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+. ~/.config/algokit/.algokit-completions.zsh
+
+[ -f "/home/pcosta/.ghcup/env" ] && source "/home/pcosta/.ghcup/env" # ghcup-env
+
+export PATH=/home/pcosta/.tiup/bin:$PATH
+
+eval "$(/home/pcosta/.local/share/rtx/bin/rtx activate -s zsh)"
+
+# Need to fix this
+# source $(dirname $(gem which colorls))/tab_complete.sh
+alias ls="colorls --sd -A"
