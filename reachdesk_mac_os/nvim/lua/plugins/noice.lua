@@ -1,0 +1,20 @@
+return {
+  -- local plugins can also be configured with the dev option.
+  -- This will use {config.dev.path}/noice.nvim/ instead of fetching it from GitHub
+  -- With the dev option, you can easily switch between the local and installed version of a plugin
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+      }
+  }
+}
